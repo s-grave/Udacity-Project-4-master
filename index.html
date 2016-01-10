@@ -66,16 +66,17 @@
     <footer>
       <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
     </footer>
+    <!--found script on google's documentation page and modified function name-->
     <script>
-      var cb = function() {
+      var cssLink = function() {
         var l = document.createElement('link'); l.rel = 'stylesheet';
-        l.href = 'css/style.min.css"';
+        l.href = 'css/style.min.css';
         var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
       };
       var raf = requestAnimationFrame || mozRequestAnimationFrame ||
           webkitRequestAnimationFrame || msRequestAnimationFrame;
-      if (raf) raf(cb);
-      else window.addEventListener('load', cb);
+      if (raf) raf(cssLink);
+      else window.addEventListener('load', cssLink);
     </script>
   </body>
 </html>
