@@ -27,6 +27,7 @@ form {
 
 #pizzaSize {
   font-weight: 800;
+  transform: translateZ(0);
 }
 
 .mover {

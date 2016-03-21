@@ -441,7 +441,7 @@ var resizePizzas = function(size) {
         console.log("bug in sizeSwitcher");
     }
 
-    var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
+    var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
 
     for (var i = 0; i < randomPizzas.length; i++) {
       randomPizzas[i].style.width = newWidth + "%";
@@ -489,14 +489,24 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
+// part of updatePositions() from: https://gist.github.com/anonymous/dbddbb3cbe8ff64dffd3
+
+
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
-  var i = 0;
-  var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+  var items = document.getElementsByClassName('mover');
+  var scrollNumber = document.body.scrollTop;
+  var i;
+  var constArray = [];
+  for (i = 0; i < 5; i++) {
+      constArray.push(Math.sin((scrollNumber / 1250) + i));
+    }
+
   for (var i = 0; i < items.length; i++) {
+    var phase = constArray[i % 5];
+
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
@@ -517,7 +527,7 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 23; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
